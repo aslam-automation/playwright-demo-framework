@@ -1,12 +1,20 @@
 # Playwright Demo Framework
 
-Automation framework built using:
+## Tech Stack
 
 - Playwright
 - JavaScript
-- API Testing
 - Page Object Model
 
-## Author
+## Features
 
-QA Automation Engineer with 10+ years experience in Selenium, Java, C# and Playwright.
+- UI Testing
+- API Testing
+- Reporting
+- CI/CD Ready
+
+## Execution
+
+npm install
+
+npx playwright test
