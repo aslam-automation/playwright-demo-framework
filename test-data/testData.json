@@ -1,0 +1,13 @@
+{
+  "url": "https://example.com",
+  "users": {
+    "validUser": {
+      "username": "testuser",
+      "password": "Password123"
+    },
+    "invalidUser": {
+      "username": "invaliduser",
+      "password": "wrongpassword"
+    }
+  }
+}
