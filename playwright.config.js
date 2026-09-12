@@ -6,14 +6,15 @@ try {
   // dotenv not installed or .env not present — continue silently
 }
 
+const { config: apiConfig } = require('./config/api.config.cjs');
+
 const config = {
   testDir: 'tests',
   timeout: 30 * 1000,
   retries: process.env.CI ? 2 : 0,
   reporter: [['list']],
   use: {
-    // Default baseURL for request fixture and tests; override via API_BASE_URL env var
-    baseURL: process.env.API_BASE_URL || 'http://localhost:3000',
+    baseURL: apiConfig.baseURL,
     // Additional useful defaults can be added here
   },
 };

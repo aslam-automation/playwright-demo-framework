@@ -1,4 +1,4 @@
-import { config } from '../../utils/Config.js';
+import { config } from '../../config/api.config.cjs';
 
 export class ApiClient {
   constructor(request, baseURL = config.baseURL) {
