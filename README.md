@@ -131,3 +131,17 @@ npx playwright test tests/ui/ui.login.page.spec.js --reporter=line
 - API tests are separated from UI tests under their respective folders.
 - This makes it easier to run, maintain, and scale both automation areas in the same project.
 - For real projects, update `.env` values and service endpoints to match your actual application APIs.
+
+## Checklist (recommended)
+
+- [x] README includes project structure and run commands
+- [x] Example API test uses a public endpoint and passes
+- [x] Fixtures and services follow consistent naming
+- [ ] Add CI workflow to run the test matrix (optional follow-up)
+- [ ] Add more example tests for auth and users (optional follow-up)
+
+## Follow-ups / Recommendations
+
+- Add CI integration to run API and UI suites separately (GitHub Actions matrix).
+- Add more endpoint samples and schema validation (e.g., JSON schema checks).
+- Add secure secret handling for API_TOKEN in CI (GitHub Secrets).
