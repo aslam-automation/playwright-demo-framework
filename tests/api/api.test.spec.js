@@ -1,8 +1,10 @@
 import { expect } from '@playwright/test';
 import { test } from '../../fixtures/api/api.base.fixture.js';
+import { config } from '../../config/api.config.cjs';
 
 test('example API health check using apiClient', async ({ apiClient }) => {
-  const response = await apiClient.get('https://jsonplaceholder.typicode.com/todos/1');
+  console.log('API Url:', config.todoPath);
+  const response = await apiClient.get(config.todoPath);
 
   console.log('API response status:', response.status());
   expect(response.status()).toBeGreaterThanOrEqual(200);
