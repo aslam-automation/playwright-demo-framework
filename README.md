@@ -5,28 +5,143 @@
 - Playwright
 - JavaScript
 - Page Object Model
+- API testing with service classes
+- UI testing with page objects
 
 ## Features
 
 - UI Testing
 - API Testing
-- Reporting
-- CI/CD Ready
+- Reusable fixtures and service classes
+- Public sample API default configuration
+- CI/CD ready setup
 
-## Execution
+## Project Structure
 
+```text
+playwright-demo-framework/
+├── .env.example
+├── .gitignore
+├── package.json
+├── playwright.config.js
+├── README.md
+├── fixtures/
+│   ├── api/
+│   │   ├── api.base.fixture.js
+│   │   ├── api.auth.fixture.js
+│   │   ├── api.user.fixture.js
+│   │   ├── api.client.js
+│   │   └── services/
+│   │       ├── api.base.service.js
+│   │       ├── api.auth.service.js
+│   │       └── api.user.service.js
+│   └── ui/
+│       └── ui.base.fixture.js
+├── pages/
+│   └── login.page.js
+├── tests/
+│   ├── api/
+│   │   ├── api.test.spec.js
+│   │   ├── auth.api.spec.js
+│   │   └── user.api.spec.js
+│   └── ui/
+│       ├── ui.login.spec.js
+│       └── ui.login.page.spec.js
+├── test-data/
+├── utils/
+│   └── Config.js
+├── reports/
+└── .github/
+```
+
+## Installation
+
+```bash
 npm install
+```
 
-npm run test:api
-# or
+## Environment Setup
+
+Copy `.env.example` to `.env` and update values as needed.
+
+```bash
+copy .env.example .env
+```
+
+Example values:
+
+```env
+API_BASE_URL=https://jsonplaceholder.typicode.com
+API_TOKEN=
+API_LOGIN_PATH=/login
+API_USERS_PATH=/users
+```
+
+## Running Tests
+
+### Run all tests
+
+```bash
 npx playwright test
+```
 
-## API framework
+### Run API tests only
 
-- `fixtures/api/base.fixture.js` creates the shared `apiClient` for worker-scoped API requests.
-- `fixtures/api/auth.fixture.js` adds the `authService` fixture for authentication flows.
-- `fixtures/api/user.fixture.js` adds the `userService` fixture for user endpoints.
-- `fixtures/api/services/BaseApiService.js` is the shared base class for service objects.
-- `fixtures/api/services/AuthService.js` and `fixtures/api/services/UserService.js` wrap endpoint-specific actions such as login and user CRUD calls.
-- Tests import the relevant fixture for the module they cover, e.g. `fixtures/api/base.fixture.js`, `fixtures/api/auth.fixture.js`, or `fixtures/api/user.fixture.js`.
-- Set `API_BASE_URL`, `API_LOGIN_PATH`, `API_USERS_PATH`, and optionally `API_TOKEN` in a `.env` file to configure requests.
+```bash
+npx playwright test tests/api
+```
+
+### Run UI tests only
+
+```bash
+npx playwright test tests/ui
+```
+
+### Run a single API test file
+
+```bash
+npx playwright test tests/api/api.test.spec.js --reporter=line
+```
+
+### Run a single UI test file
+
+```bash
+npx playwright test tests/ui/ui.login.page.spec.js --reporter=line
+```
+
+## API Framework
+
+- `fixtures/api/api.base.fixture.js` creates the shared `apiClient` fixture for worker-scoped API requests.
+- `fixtures/api/api.auth.fixture.js` adds the API auth-related fixture using `AuthApi`.
+- `fixtures/api/api.user.fixture.js` adds the user-related fixture using `UserApi`.
+- `fixtures/api/api.client.js` is the central HTTP wrapper for request handling and headers.
+- `fixtures/api/services/api.base.service.js` keeps the shared base class for API services.
+- `fixtures/api/services/api.auth.service.js` exposes login-related endpoints.
+- `fixtures/api/services/api.user.service.js` exposes user-related endpoints.
+- The default `API_BASE_URL` is configured to use a public sample API, so example tests work without a local backend.
+
+## UI Framework
+
+- `fixtures/ui/ui.base.fixture.js` is the base UI fixture used for browser-based tests.
+- `pages/login.page.js` is the page object model for login-related UI flows.
+- UI tests live under `tests/ui` and can reuse the same page objects and fixture patterns.
+
+## Notes
+
+- API tests are separated from UI tests under their respective folders.
+- This makes it easier to run, maintain, and scale both automation areas in the same project.
+- For real projects, update `.env` values and service endpoints to match your actual application APIs.
+
+## Checklist (recommended)
+
+- [x] README includes project structure and run commands
+- [x] Example API test uses a public endpoint and passes
+- [x] Fixtures and services follow consistent naming
+- [ ] Add CI workflow to run the test matrix (optional follow-up)
+- [ ] Add more example tests for auth and users (optional follow-up)
+
+## Follow-ups / Recommendations
+
+- Add CI integration to run API and UI suites separately (GitHub Actions matrix).
+- Add more endpoint samples and schema validation (e.g., JSON schema checks).
+- Add secure secret handling for API_TOKEN in CI (GitHub Secrets).
