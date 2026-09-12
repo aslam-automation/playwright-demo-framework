@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*
+!.env.example
+
+# Playwright artifacts
+playwright-report/
+test-results/
+playwright/.cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
